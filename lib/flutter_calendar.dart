@@ -217,7 +217,12 @@ class _CalendarState extends State<Calendar> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(DateUtils.fullDayFormat(selectedDate)),
+          Container(
+            padding: EdgeInsets.only(left: 16.0),
+            child: Text(
+              DateUtils.fullDayFormat(selectedDate),
+            ),
+          ),
           IconButton(
             iconSize: 20.0,
             padding: EdgeInsets.all(0.0),
