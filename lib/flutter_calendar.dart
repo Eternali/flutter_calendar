@@ -58,7 +58,7 @@ class _CalendarState extends State<Calendar> {
         .toList()
         .sublist(0, 7);
     _selectedDate = today;
-    displayMonth = DateUtils.formatMonth(DateUtils.firstDayOfWeek(today));
+    displayMonth = DateUtils.formatMonth(today);
   }
 
   Widget get nameAndIconRow {
@@ -118,6 +118,7 @@ class _CalendarState extends State<Calendar> {
 
   Widget get calendarGridView {
     return Container(
+      // height: 300.0,
       // child: PageView.builder(
       //   itemCount: 12,  // months
       //   itemBuilder: (BuildContext context, int page) {

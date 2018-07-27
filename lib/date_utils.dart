@@ -28,11 +28,11 @@ class DateUtils {
   /// The list of days in a given month
   static List<DateTime> daysInMonth(DateTime month) {
     var first = firstDayOfMonth(month);
-    var daysBefore = first.weekday % 7;
+    var daysBefore = first.weekday; // % 7;
     var firstToDisplay = first.subtract(new Duration(days: daysBefore));
     var last = lastDayOfMonth(month);
 
-    var daysAfter = 7 - last.weekday;
+    var daysAfter = 7 - (last.weekday); // % 7);
     var lastToDisplay = last.add(new Duration(days: daysAfter));
     return daysInRange(firstToDisplay, lastToDisplay).toList();
   }
@@ -128,7 +128,9 @@ class DateUtils {
     } else {
       month--;
     }
-    return DateTime(year, month);
+    // Just return a date well enough into the new month so as to not cause
+    // any calendar rendering confusion.
+    return DateTime(year, month, 14);
   }
 
   static DateTime nextMonth(DateTime m) {
@@ -141,7 +143,9 @@ class DateUtils {
     } else {
       month++;
     }
-    return DateTime(year, month);
+    // Just return a date well enough into the new month so as to not cause
+    // any calendar rendering confusion.
+    return DateTime(year, month, 14);
   }
 
   static DateTime previousWeek(DateTime w) {
