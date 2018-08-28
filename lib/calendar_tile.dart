@@ -78,8 +78,11 @@ class CalendarTile extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               ticksBuilder != null
-                ? TickScroller(
-                  ticks: ticksBuilder(context, date),
+                ? Padding(
+                  padding: const EdgeInsets.only(top: 6.0),
+                  child: TickScroller(
+                    ticks: ticksBuilder(context, date),
+                  ),
                 )
                 : null,
             ],
