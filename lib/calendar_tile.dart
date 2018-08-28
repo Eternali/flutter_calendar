@@ -9,22 +9,34 @@ class CalendarTile extends StatelessWidget {
   final bool isSelected;
   final TextStyle dayOfWeekStyles;
   final TextStyle dateStyles;
-  final TextStyle selectedStyles;
+  final TextStyle selectedStyle;
+  final TextStyle todayStyle;
   final Widget child;
+  
+  // if provided a color with an alpha <= 0 the color will be disabled
+  Color todayColor;  // defaults to primary color
+  Color selectedColor;  // defaults to accent color
+
+  bool get isToday => Utils.isSameDay(date, DateTime.now());
 
   CalendarTile({
     this.onDateSelected,
     this.date,
     this.child,
     this.dateStyles,
-    this.selectedStyles,
+    this.selectedStyle = const TextStyle(color: Colors.white),
+    this.todayStyle = const TextStyle(color: Colors.white),
     this.dayOfWeek,
     this.dayOfWeekStyles,
     this.isDayOfWeek: false,
     this.isSelected: false,
+    this.todayColor,
+    this.selectedColor,
   });
 
   Widget renderDateOrDayOfWeek(BuildContext context) {
+    todayColor ??= Theme.of(context).primaryColor;
+    selectedColor ??= Theme.of(context).accentColor;
     if (isDayOfWeek) {
       return InkWell(
         child: Container(
@@ -39,16 +51,21 @@ class CalendarTile extends StatelessWidget {
       return InkWell(
         onTap: onDateSelected,
         child: Container(
-          decoration: isSelected
+          decoration: isSelected && selectedColor.alpha > 0
               ? BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Theme.of(context).primaryColor,
+                  color: selectedColor,
                 )
-              : BoxDecoration(),
+              : isToday && todayColor.alpha > 0
+                ? BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: todayColor,
+                  )
+                : BoxDecoration(),
           alignment: Alignment.center,
           child: Text(
             Utils.formatDay(date).toString(),
-            style: isSelected ? selectedStyles : dateStyles,
+            style: isSelected ? selectedStyle : isToday ? todayStyle : dateStyles,
             textAlign: TextAlign.center,
           ),
         ),

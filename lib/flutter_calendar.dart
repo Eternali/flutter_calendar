@@ -16,6 +16,10 @@ class Calendar extends StatefulWidget {
   final bool showTodayAction;
   final bool showCalendarPickerIcon;
   final DateTime initialCalendarDateOverride;
+  // Setting a color to be completely transparent (alpha <= 0)
+  // will disable that highlighting of dates.
+  final Color todayColor;
+  final Color selectedColor;
 
   Calendar({
     this.onDateSelected,
@@ -25,7 +29,9 @@ class Calendar extends StatefulWidget {
     this.showTodayAction: true,
     this.showChevronsToChangeRange: true,
     this.showCalendarPickerIcon: true,
-    this.initialCalendarDateOverride
+    this.initialCalendarDateOverride,
+    this.todayColor,
+    this.selectedColor,
   });
 
   @override
@@ -175,7 +181,6 @@ class _CalendarState extends State<Calendar> {
               onDateSelected: () => handleSelectedDateAndUserCallback(day),
               date: day,
               dateStyles: configureDateStyle(Theme.of(context).textTheme, monthStarted, monthEnded),
-              selectedStyles: TextStyle(color: Colors.white),
               isSelected: Utils.isSameDay(selectedDate, day),
             ),
           );
@@ -199,19 +204,22 @@ class _CalendarState extends State<Calendar> {
 
   Widget get expansionButtonRow {
     if (widget.isExpandable) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(Utils.fullDayFormat(selectedDate)),
-          IconButton(
-            iconSize: 20.0,
-            padding: EdgeInsets.all(0.0),
-            onPressed: toggleExpanded,
-            icon: isExpanded
-                ? Icon(Icons.arrow_drop_up)
-                : Icon(Icons.arrow_drop_down),
-          ),
-        ],
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(Utils.fullDayFormat(selectedDate)),
+            IconButton(
+              iconSize: 20.0,
+              padding: EdgeInsets.all(0.0),
+              onPressed: toggleExpanded,
+              icon: isExpanded
+                  ? Icon(Icons.arrow_drop_up)
+                  : Icon(Icons.arrow_drop_down),
+            ),
+          ],
+        ),
       );
     } else {
       return Container();
