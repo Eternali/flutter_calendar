@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
-import 'package:flutter_calendar/calendar_tile.dart';
 import 'package:date_utils/date_utils.dart';
 
-typedef DayBuilder(BuildContext context, DateTime day);
+import 'package:flutter_calendar/calendar_tile.dart';
+import 'package:flutter_calendar/tick.dart';
+
+typedef Widget DayBuilder(BuildContext context, DateTime day);
 
 class Calendar extends StatefulWidget {
   final ValueChanged<DateTime> onDateSelected;
@@ -16,6 +18,8 @@ class Calendar extends StatefulWidget {
   final bool showTodayAction;
   final bool showCalendarPickerIcon;
   final DateTime initialCalendarDateOverride;
+  final TicksBuilder ticksBuilder;
+
   // Setting a color to be completely transparent (alpha <= 0)
   // will disable that highlighting of dates.
   final Color todayColor;
@@ -30,6 +34,7 @@ class Calendar extends StatefulWidget {
     this.showChevronsToChangeRange: true,
     this.showCalendarPickerIcon: true,
     this.initialCalendarDateOverride,
+    this.ticksBuilder,
     this.todayColor,
     this.selectedColor,
   });
@@ -182,6 +187,7 @@ class _CalendarState extends State<Calendar> {
               date: day,
               dateStyles: configureDateStyle(Theme.of(context).textTheme, monthStarted, monthEnded),
               isSelected: Utils.isSameDay(selectedDate, day),
+              ticksBuilder: widget.ticksBuilder,
             ),
           );
         }

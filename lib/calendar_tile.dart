@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:date_utils/date_utils.dart';
 
+import 'package:flutter_calendar/tick.dart';
+import 'package:flutter_calendar/tick_scroller.dart';
+
 class CalendarTile extends StatelessWidget {
   final VoidCallback onDateSelected;
   final DateTime date;
@@ -12,6 +15,7 @@ class CalendarTile extends StatelessWidget {
   final TextStyle selectedStyle;
   final TextStyle todayStyle;
   final Widget child;
+  final TicksBuilder ticksBuilder;
   
   // if provided a color with an alpha <= 0 the color will be disabled
   Color todayColor;  // defaults to primary color
@@ -30,6 +34,7 @@ class CalendarTile extends StatelessWidget {
     this.dayOfWeekStyles,
     this.isDayOfWeek: false,
     this.isSelected: false,
+    this.ticksBuilder,
     this.todayColor,
     this.selectedColor,
   });
@@ -63,10 +68,21 @@ class CalendarTile extends StatelessWidget {
                   )
                 : BoxDecoration(),
           alignment: Alignment.center,
-          child: Text(
-            Utils.formatDay(date).toString(),
-            style: isSelected ? selectedStyle : isToday ? todayStyle : dateStyles,
-            textAlign: TextAlign.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                Utils.formatDay(date).toString(),
+                style: isSelected ? selectedStyle : isToday ? todayStyle : dateStyles,
+                textAlign: TextAlign.center,
+              ),
+              ticksBuilder != null
+                ? TickScroller(
+                  ticks: ticksBuilder(context, date),
+                )
+                : null,
+            ],
           ),
         ),
       );
