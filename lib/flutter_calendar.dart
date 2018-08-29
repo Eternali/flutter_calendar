@@ -211,11 +211,14 @@ class _CalendarState extends State<Calendar> {
   Widget get expansionButtonRow {
     if (widget.isExpandable) {
       return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+        margin: const EdgeInsets.only(left: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(Utils.fullDayFormat(selectedDate)),
+            Text(
+              Utils.fullDayFormat(selectedDate)
+            ),
             IconButton(
               iconSize: 20.0,
               padding: EdgeInsets.all(0.0),
