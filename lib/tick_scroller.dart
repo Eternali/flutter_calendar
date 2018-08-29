@@ -16,7 +16,7 @@ class TickScroller extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 10.0,
+      height: 14.0,
       child: ListView(
         scrollDirection: scrollDirection,
         shrinkWrap: true,

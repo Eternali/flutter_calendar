@@ -79,7 +79,7 @@ class CalendarTile extends StatelessWidget {
               ),
               ticksBuilder != null
                 ? Padding(
-                  padding: const EdgeInsets.only(top: 6.0),
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: TickScroller(
                     ticks: ticksBuilder(context, date),
                   ),
