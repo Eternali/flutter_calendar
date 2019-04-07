@@ -13,9 +13,9 @@ dependencies:
   intl: ^0.15.0
   tuple: ^1.0.1
   date_utils:
-    path: ../date_utils
-    # git:
-    #   url: git://github.com/eternali/date_utils.git
+    # path: ../date_utils
+    git:
+      url: git@github.com:eternali/date_utils.git
 
 dev_dependencies:
   flutter_test:
