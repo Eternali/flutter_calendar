@@ -71,8 +71,8 @@ class _CalendarState extends State<Calendar> {
     _selectedDate = day;
     selectedWeeksDays = Utils
         .daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
-        .toList()
-        .sublist(0, 7);
+        .toList();
+        // .sublist(0, 7);
     displayMonth = Utils.formatMonth(day);
   }
 
